@@ -15,11 +15,13 @@
     "serve-static": "^1.13.1"
   },
   "devDependencies": {
+    "eslint": "^4.8.0",
     "prettier": "1.7.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "prettier --write *.{js,json,css}"
+    "precommit": "prettier --write *.{js,json,css}",
+    "lint": "eslint ."
   },
   "bin": {
     "react-snap": "./index.js"
