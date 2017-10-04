@@ -54,14 +54,16 @@ const crawl = options => {
     if (shuttingDown) return;
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    page.evaluateOnNewDocument(() => {
+      window.REACT_SNAP = true;
+    });
     await page.goto(url, { waitUntil: "networkidle" });
     const links = await page.evaluate(() =>
       Array.from(document.querySelectorAll("a")).map(link => link.href)
     );
     links.map(addToQueue);
-    const content = await page.evaluate(
-      () => document.documentElement.outerHTML
-    );
+    const content = await page.content();
+    console.log('GET CONTENT');
     const route = url.replace(basePath, "");
     let filePath = path.join(buildDir, route);
     mkdirp.sync(filePath);
